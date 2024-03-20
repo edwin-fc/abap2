@@ -1,0 +1,16 @@
+CLASS zcl_lab_23_company_9387 DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC
+  GLOBAL FRIENDS zcl_lab_24_partner_9387 .
+
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+  Data capital type string.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_23_company_9387 IMPLEMENTATION.
+ENDCLASS.

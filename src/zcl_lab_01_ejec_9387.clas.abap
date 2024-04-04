@@ -528,26 +528,115 @@ CLASS zcl_lab_01_ejec_9387 IMPLEMENTATION.
 *****************10 Laboratorio - Laboratorio************************************
 *********************9. Asignación de excepciones unas a otras
 
-    DATA(lo_date_analyzer) = NEW zcl_lab_58_date_analyzer_9387( ).
+*    DATA(lo_date_analyzer) = NEW zcl_lab_58_date_analyzer_9387( ).
+*
+*    TRY.
+*
+*        TRY.
+*            lo_date_analyzer->analyze_data( ).
+*
+*          CATCH zcx_lab_56_no_date_9387 INTO DATA(lx_date).
+*            lo_date_analyzer->analyze_format( io_previous = lx_date ).
+*        ENDTRY.
+*      CATCH zcx_lab_57_format_unknown_9387 INTO DATA(lx_format).
+*
+*        out->write( | { lx_format->get_text( ) }{ cl_abap_char_utilities=>newline } | ).
+*
+*        IF lx_format->previous IS BOUND.
+*
+*          out->write( | { lx_format->previous->get_text( ) }{ cl_abap_char_utilities=>newline } | ).
+*
+*        ENDIF.
+*    ENDTRY.
 
-    TRY.
 
-        TRY.
-            lo_date_analyzer->analyze_data( ).
+*****************11 Laboratorio - ABAP Unit Test************************************
+*********************6. Test-Injection
+*
+*    DATA(lo_travel) = NEW zcl_lab_61_travel_9387( ).
+*
+*    lo_travel->get_travel(
+*      IMPORTING
+*        ev_travel = DATA(lv_travel)
+*        ).
+*
+*    out->write( | { lv_travel-carrier_id }-{ lv_travel-currency_code } | ).
 
-          CATCH zcx_lab_56_no_date_9387 INTO DATA(lx_date).
-            lo_date_analyzer->analyze_format( io_previous = lx_date ).
-        ENDTRY.
-      CATCH zcx_lab_57_format_unknown_9387 INTO DATA(lx_format).
+*****************12 Laboratorio - Patrones de Diseño************************************
+*********************1. Patrón de diseño SINGLETON
 
-        out->write( | { lx_format->get_text( ) }{ cl_abap_char_utilities=>newline } | ).
+*    DATA go_singleton1 TYPE REF TO zcl_lab_62_context_9387.
+*    DATA go_singleton2 TYPE REF TO zcl_lab_62_context_9387.
+*
+*    go_singleton1 = zcl_lab_62_context_9387=>get_instance( ).
+*
+*    WAIT UP TO 2 SECONDS.
+*    go_singleton2 = zcl_lab_62_context_9387=>get_instance( ).
+*
+*    out->write( go_singleton1->gv_time ).
+*
+*    out->write( go_singleton2->gv_time ).
 
-        IF lx_format->previous IS BOUND.
+*****************12 Laboratorio - Patrones de Diseño************************************
+*********************2. Patrón de diseño FACTORY METHOD
 
-          out->write( | { lx_format->previous->get_text( ) }{ cl_abap_char_utilities=>newline } | ).
+*    DATA go_type TYPE REF TO zif_lab_06_file_9387.
+*    DATA go_factory TYPE REF TO zcl_lab_65_factory_9387.
+*
+*    go_factory = NEW #(  ).
+*
+*    go_type = go_factory->create_file( 'Work File' ).
+*
+*    out->write( go_type->get_file_type( ) ).
+*
 
-        ENDIF.
-    ENDTRY.
+*****************12 Laboratorio - Patrones de Diseño************************************
+*********************3. Patrón de diseño TEMPLATE METHOD
+
+*    DATA(lo_travel_A) = NEW zcl_lab_67_package_a_9387( ).
+*    DATA(lo_travel_B) = NEW zcl_lab_68_package_b_9387( ).
+*
+*    out->write( 'Package A' ).
+*    lo_travel_a->travel( ro_out = out ).
+*    out->write( |{ cl_abap_char_utilities=>newline }Package B| ).
+*    lo_travel_b->travel( out ).
+
+*****************12 Laboratorio - Patrones de Diseño************************************
+*********************4. Patrón de diseño Observer
+
+*    DATA(lo_blog) = NEW zcl_lab_69_blog_9387( ).
+*    DATA(lo_admin) = NEW zcl_lab_71_administrator_9387( ).
+*    DATA(lo_user)  = NEW zcl_lab_72_users_9387( ).
+*
+*    SET HANDLER lo_admin->on_modified_article FOR lo_blog.
+*    SET HANDLER lo_user->on_modified_article FOR lo_blog.
+*
+*    lo_blog->set_article( 'Article 1' ) .
+*    out->write( lo_blog->get_article(  ) ).
+*    out->write( lo_admin->notification ).
+*    out->write( lo_user->notification ).
+*
+*    lo_blog->set_article( 'Article 2' ) .
+*    out->write( lo_blog->get_article(  ) ).
+*    out->write( lo_admin->notification ).
+*    out->write( lo_user->notification ).
+
+*****************12 Laboratorio - Patrones de Diseño************************************
+*********************5. Patrón de diseño MODEL-VIEW-CONTROLLER
+
+    DATA lv_carrier_id TYPE string VALUE 'SQ'.
+
+    DATA(lo_model) = NEW  zcl_lab_73_model_9387( iv_carried_id = lv_carrier_id ).
+    DATA(lo_view) = NEW zcl_lab_74_view_9387( ).
+    DATA(lo_controller) = NEW zcl_lab_75_controller_9387(  ).
+
+    lo_controller->set_model( io_model = lo_model ).
+    lo_controller->set_view( lo_view ).
+
+    lo_controller->get_view(  )->display_flights( it_flights = lo_model->get_fligths(  )
+                                                  io_out     = out
+                                                 ).
+
 
   ENDMETHOD.
 

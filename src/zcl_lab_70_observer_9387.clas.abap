@@ -1,0 +1,14 @@
+CLASS zcl_lab_70_observer_9387 DEFINITION ABSTRACT
+  PUBLIC
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  METHODS on_modified_article ABSTRACT for EVENT new_article of zcl_lab_69_blog_9387 IMPORTING ev_article.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_70_observer_9387 IMPLEMENTATION.
+ENDCLASS.

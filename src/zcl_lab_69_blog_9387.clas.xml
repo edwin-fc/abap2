@@ -3,14 +3,13 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_LAB_59_CALCULATOR_9387</CLSNAME>
+    <CLSNAME>ZCL_LAB_69_BLOG_9387</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Laboratorio 11 - Unit Test</DESCRIPT>
+    <DESCRIPT>Laboratorio 12 - Patrones de Diseño</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
     <UNICODE>X</UNICODE>
-    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
    </VSEOCLASS>
   </asx:values>
  </asx:abap>
